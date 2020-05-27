@@ -39,23 +39,23 @@
 <dt-card>
   <h1>All of your shortcuts:</h1>
 
-  <dt-table [dataSource]="shortcuts$" DtSort>
-    <ng-container dtColumnDef="question" dtColumnAlign="text">
-      <dt-header-cell *dtHeaderCellDef>Question</dt-header-cell>
-      <dt-cell *dtCellDef="let row">
-        {{row.shortcutLabel}}
-      </dt-cell>
-    </ng-container>
+  <dt-table-search
+    name="tableSearch"
+    placeholder="Search table data..."
+    aria-label="Search table data"
+  ></dt-table-search>
+  <dt-table [dataSource]="dataSource" dtSort>
+    <dt-simple-text-column name="shortcutLabel" label="Question"></dt-simple-text-column>
     <ng-container dtColumnDef="shortcut" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Shortcut</dt-header-cell>
       <dt-cell *dtCellDef="let row">
         <app-shortcut-displayer [keys]="row.shortcutKeys"></app-shortcut-displayer>
       </dt-cell>
     </ng-container>
-    <dt-header-row *dtHeaderRowDef="['question', 'shortcut']"
+    <dt-header-row *dtHeaderRowDef="['shortcutLabel', 'shortcut']"
     ></dt-header-row>
     <dt-row
-            *dtRowDef="let row; columns: ['question', 'shortcut']"
+            *dtRowDef="let row; columns: ['shortcutLabel', 'shortcut']"
     ></dt-row>
   </dt-table>
 

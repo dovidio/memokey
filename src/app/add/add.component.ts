@@ -1,27 +1,33 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FlashCard, PersistenceService} from "../core/services";
-import {HotkeyRecorderService, HotkeyService} from "../core/services/hotkeys";
+import {HotkeyRecorderService} from "../core/services/hotkeys";
 import {DtToast} from "@dynatrace/barista-components/toast";
-import {Observable} from "rxjs";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
+import {DtSort, DtTableDataSource, DtTableSearch} from "@dynatrace/barista-components/table";
 
 @Component({
   selector: "app-add",
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.css"],
 })
-export class AddComponent implements OnInit {
+export class AddComponent implements OnInit, OnDestroy {
   @ViewChild("shortcutLabel") shortcutLabel;
+  @ViewChild(DtSort, {static: true}) sortable: DtSort;
+  @ViewChild(DtTableSearch, { static: true })
+  tableSearch: DtTableSearch;
 
   isShortcutDetectionRunning = false;
   detectedShortcut: string[] = null;
   question: string;
 
-  shortcuts$: Observable<FlashCard[]>;
+  dataSource: DtTableDataSource<FlashCard> = new DtTableDataSource();
+
+  private readonly onDestroy$ = new Subject<void>();
 
   constructor(
       private persistenceService: PersistenceService,
       private hotkeyRecorderService: HotkeyRecorderService,
-      private hotkeyService: HotkeyService,
       private toast: DtToast
   ) {}
 
@@ -32,7 +38,12 @@ export class AddComponent implements OnInit {
         this.isShortcutDetectionRunning = false;
       }
     });
-    this.shortcuts$ = this.persistenceService.getAllFlashcard();
+    this.persistenceService.getAllFlashcard().pipe(
+      takeUntil(this.onDestroy$),
+    )
+      .subscribe((flashcards => this.dataSource.data = flashcards))
+    this.dataSource.sort = this.sortable;
+    this.dataSource.search = this.tableSearch;
   }
 
   saveShortcut(): void {
@@ -60,5 +71,10 @@ export class AddComponent implements OnInit {
 
   validateShortcut() {
     return this.detectedShortcut != null && this.detectedShortcut.length > 0;
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }
