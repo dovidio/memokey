@@ -13,7 +13,7 @@ export interface FlashCardStats {
 
 export interface FlashCard {
   shortcutLabel: string; // The label/question associated to this shortcut
-  shortcutString: string; // string-serialized shortcut (e.g. Ctrl+a)
+  shortcutKeys: string[]; // string-serialized shortcut (e.g. Ctrl+a)
 
   stats: FlashCardStats; // stats used to schedule next repetition
 }
@@ -50,8 +50,8 @@ export class PersistenceService {
     );
   }
 
-  addFlashcard(shortcutLabel: string, shortcut: string): void {
-    const data = this.createNewFlashCard(shortcutLabel, shortcut);    
+  addFlashcard(shortcutLabel: string, shortcutKeys: string[]): void {
+    const data = this.createNewFlashCard(shortcutLabel, shortcutKeys);
     const currentValues = this.flashcards$.getValue();
     currentValues.push(data);
     this.flushFlashcardsToDisk();
@@ -77,11 +77,11 @@ export class PersistenceService {
 
   private createNewFlashCard(
     shortcutLabel: string,
-    shortcutString: string
+    shortcutKeys: string[]
   ): FlashCard {
     return {
       shortcutLabel,
-      shortcutString,
+      shortcutKeys,
       stats: {
         repetition: 0,
         interval: 1,
@@ -100,7 +100,7 @@ const filterRepeatableFlashcards = (
     return [];
   }
 
-  const currentTimestampInSeconds = Math.round(new Date().getTime() / 1000);  
+  const currentTimestampInSeconds = Math.round(new Date().getTime() / 1000);
   return flashcards.filter(
     f => f.stats.nextTimestampInSeconds <= currentTimestampInSeconds
   );
