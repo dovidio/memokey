@@ -1,0 +1,16 @@
+<div *ngIf="askFeedback">
+  <p>Congratulations, you did good!</p>
+  <p>How easy was this shortcut for you?</p>
+  <dt-button-group>
+    <dt-button-group-item (click)="gradeEmitter.emit(5)">Very Easy</dt-button-group-item>
+    <dt-button-group-item (click)="gradeEmitter.emit(4)">Easy</dt-button-group-item>
+    <dt-button-group-item (click)="gradeEmitter.emit(3)">Medium</dt-button-group-item>
+    <dt-button-group-item (click)="gradeEmitter.emit(2)">Hard</dt-button-group-item>
+    <dt-button-group-item (click)="gradeEmitter.emit(1)">Very Hard</dt-button-group-item>
+  </dt-button-group>
+</div>
+<div *ngIf="!askFeedback">
+  <p>Bummer! Correct answer is: {{correctAnswer}}</p>
+  <button (click)="gradeEmitter.emit(0)" dt-button>Next</button>
+</div>
+
