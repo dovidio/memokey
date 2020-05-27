@@ -23,12 +23,14 @@ import { DtDrawerModule } from "@dynatrace/barista-components/drawer";
 import {DtButtonModule} from "@dynatrace/barista-components/button";
 import {DtTableModule} from "@dynatrace/barista-components/table";
 import { CurrentlyPressedKeysComponent } from './currently-pressed-keys/currently-pressed-keys.component';
+import {ShortcutDisplayerComponent} from "./shortcut-displayer/shortcut-displayer.component";
+import {DtExpandableSectionModule} from "@dynatrace/barista-components/expandable-section";
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
-    declarations: [AppComponent, AddComponent, LearnComponent, CurrentlyPressedKeysComponent, ShortcutDisplayerComponent],
+  declarations: [AppComponent, AddComponent, LearnComponent, CurrentlyPressedKeysComponent, ShortcutDisplayerComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -52,7 +54,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserAnimationsModule,
     DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
     DtButtonModule,
-    DtTableModule
+    DtTableModule,
+    DtExpandableSectionModule
   ],
     providers: [],
     bootstrap: [AppComponent]

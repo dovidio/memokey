@@ -6,10 +6,12 @@
         <a routerLink="/learn" dtMenuItem>Learn</a>
       </dt-menu>
     </dt-sidenav>
-    <div class="memokey-main">
-      <router-outlet></router-outlet>
+    <div class="sidenav-content">
+      <div class="memokey-main">
+        <router-outlet></router-outlet>
 
+      </div>
+      <app-currently-pressed-keys></app-currently-pressed-keys>
     </div>
-    <app-currently-pressed-keys></app-currently-pressed-keys>
   </dt-sidenav-container>
 </div>
