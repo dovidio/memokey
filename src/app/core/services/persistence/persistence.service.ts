@@ -12,6 +12,7 @@ export interface FlashCardStats {
 }
 
 export interface FlashCard {
+  id: number;
   shortcutLabel: string; // The label/question associated to this shortcut
   shortcutKeys: string[]; // string-serialized shortcut (e.g. Ctrl+a)
 
@@ -58,11 +59,12 @@ export class PersistenceService {
     this.flashcards$.next(currentValues);
   }
 
-  updateFlashcardStats(index: number, grade: number): void {
-    const toModify = this.flashcards$[index];
+  updateFlashcardStats(id: number, grade: number): void {
+    const toModify = this.flashcards$.value.find(f => f.id == id);
     const ts = Math.round(new Date().getTime() / 1000);
     toModify.stats = gradeFlashCard(toModify.stats, grade, ts);
     this.flushFlashcardsToDisk(); // TODO: extremely inefficient, use real db (SQLite)
+    this.flashcards$.next(this.flashcards$.value);
   }
 
   private flushFlashcardsToDisk(): void {
@@ -80,6 +82,7 @@ export class PersistenceService {
     shortcutKeys: string[]
   ): FlashCard {
     return {
+      id: this.flashcards$.value.length + 1,
       shortcutLabel,
       shortcutKeys,
       stats: {
