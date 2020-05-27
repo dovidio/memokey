@@ -1,8 +1,15 @@
-<div class="side-nav-wrapper">
-    <ul>
-      <a routerLink="/add"><li>{{ 'SIDE_NAV.ADD' | translate }}</li></a>
-      <a routerLink="/learn"><li>{{ 'SIDE_NAV.LEARN' | translate }}</li></a>
-    </ul>
-  </div>
+<div>
+  <dt-sidenav-container>
+    <dt-sidenav mode="side" position="start" opened>
+      <dt-menu>
+        <a routerLink="/add" dtMenuItem>Add</a>
+        <a routerLink="/learn" dtMenuItem>Learn</a>
+      </dt-menu>
+    </dt-sidenav>
+    <div class="memokey-main">
+      <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+    </div>
+    <app-currently-pressed-keys></app-currently-pressed-keys>
+  </dt-sidenav-container>
+</div>

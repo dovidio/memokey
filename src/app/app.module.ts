@@ -15,29 +15,46 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddComponent } from './add/add.component';
 import { LearnComponent } from './learn/learn.component';
+import { DtMenuModule } from "@dynatrace/barista-components/menu";
+import { DtCardModule } from "@dynatrace/barista-components/card";
+import { DtFormFieldModule } from "@dynatrace/barista-components/form-field";
+import { DtInputModule } from "@dynatrace/barista-components/input";
+import { DtDrawerModule } from "@dynatrace/barista-components/drawer";
+import {DtButtonModule} from "@dynatrace/barista-components/button";
+import {DtTableModule} from "@dynatrace/barista-components/table";
+import { CurrentlyPressedKeysComponent } from './currently-pressed-keys/currently-pressed-keys.component';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
-    declarations: [AppComponent, AddComponent, LearnComponent],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        CoreModule,
-        SharedModule,
-        AppRoutingModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        BrowserAnimationsModule,
-        DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' })
-    ],
+    declarations: [AppComponent, AddComponent, LearnComponent, CurrentlyPressedKeysComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    CoreModule,
+    SharedModule,
+    AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    BrowserAnimationsModule,
+    DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
+    DtMenuModule,
+    DtCardModule,
+    DtFormFieldModule,
+    DtInputModule,
+    DtDrawerModule,
+    BrowserAnimationsModule,
+    DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
+    DtButtonModule,
+    DtTableModule
+  ],
     providers: [],
     bootstrap: [AppComponent]
 })

@@ -1,37 +1,28 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {PersistenceService} from "../core/services";
-import {HotkeyRecorderService, HotkeyService} from "../core/services/hotkeys";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {FlashCard, PersistenceService} from '../core/services';
+import {DtTableDataSource} from "@dynatrace/barista-components/table";
 
 @Component({
-  selector: "app-add",
-  templateUrl: "./add.component.html",
-  styleUrls: ["./add.component.css"],
+  selector: 'app-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
-  @ViewChild("shortcutLabel") shortcutLabel;
 
-  constructor(
-    private persistenceService: PersistenceService,
-    private hotkeyRecorderService: HotkeyRecorderService,
-    private hotkeyService: HotkeyService
-  ) {}
+  @ViewChild('shortcutLabel') shortcutLabel;
+
+  myShortcuts: FlashCard[];
+  myShortcutsTableSource: DtTableDataSource<FlashCard>;
+
+  constructor(private persistenceService: PersistenceService) {
+    this.myShortcutsTableSource = new DtTableDataSource<FlashCard>(this.myShortcuts);
+  }
 
   ngOnInit(): void {
-    this.hotkeyRecorderService.hotkey$.subscribe((keys) =>
-      this.addHotkey(keys)
-    );
   }
 
   recognizeShortcut(): void {
-    this.persistenceService.addFlashcard(
-      this.shortcutLabel.nativeElement.value,
-      "bla"
-    );
-  }
-
-  addHotkey(keys: string[]): void {
-    this.hotkeyService
-      .addShortcut({ keys })
-      .subscribe(() => console.log("I have seen this combination already🎉"));
+    console.log(this.shortcutLabel.nativeElement.value);
+    console.log(this.persistenceService.addShortcut(this.shortcutLabel.nativeElement.value, 'bla'));
   }
 }

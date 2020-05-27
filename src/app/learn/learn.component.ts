@@ -9,7 +9,14 @@ export class LearnComponent implements OnInit {
 
   constructor() { }
 
+  isAnswerShown: boolean = false;
+
   ngOnInit(): void {
+  }
+
+  onShowAnswer() {
+    // TODO actually show answer
+    this.isAnswerShown = true;
   }
 
 }
