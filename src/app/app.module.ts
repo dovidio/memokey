@@ -20,13 +20,15 @@ import { DtCardModule } from "@dynatrace/barista-components/card";
 import { DtFormFieldModule } from "@dynatrace/barista-components/form-field";
 import { DtInputModule } from "@dynatrace/barista-components/input";
 import { DtDrawerModule } from "@dynatrace/barista-components/drawer";
-import {DtButtonModule} from "@dynatrace/barista-components/button";
-import {DtTableModule} from "@dynatrace/barista-components/table";
+import { DtButtonModule } from "@dynatrace/barista-components/button";
+import { DtTableModule } from "@dynatrace/barista-components/table";
 import { CurrentlyPressedKeysComponent } from './currently-pressed-keys/currently-pressed-keys.component';
-import {ShortcutDisplayerComponent} from "./shortcut-displayer/shortcut-displayer.component";
-import {DtExpandableSectionModule} from "@dynatrace/barista-components/expandable-section";
-import {DtTopBarNavigationModule} from "@dynatrace/barista-components/top-bar-navigation";
-import {DtSelectModule} from "@dynatrace/barista-components/select";
+import { ShortcutDisplayerComponent } from "./shortcut-displayer/shortcut-displayer.component";
+import { DtExpandableSectionModule } from "@dynatrace/barista-components/expandable-section";
+import { DtTopBarNavigationModule } from "@dynatrace/barista-components/top-bar-navigation";
+import { DtSelectModule } from "@dynatrace/barista-components/select";
+import { DtToastModule } from "@dynatrace/barista-components/toast";
+import { DtLoadingDistractorModule } from "@dynatrace/barista-components/loading-distractor";
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -59,7 +61,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DtTableModule,
     DtExpandableSectionModule,
     DtTopBarNavigationModule,
-    DtSelectModule
+    DtSelectModule,
+    DtToastModule,
+    DtLoadingDistractorModule
   ],
     providers: [],
     bootstrap: [AppComponent]
