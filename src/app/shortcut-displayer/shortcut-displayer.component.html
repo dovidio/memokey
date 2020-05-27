@@ -1,0 +1,4 @@
+<span *ngFor="let key of keys; let i = index" class="key">
+  <span class="key-span">{{key}}</span>
+  <ng-container *ngIf="i < keys.length - 1"> + </ng-container>
+</span>
