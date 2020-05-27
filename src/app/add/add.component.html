@@ -2,18 +2,61 @@
   <h1>Add new key shortcut ⌨️</h1>
   <p>You can add a new key shortcut to one of your decks here.</p>
 
+  <h2>Set a question</h2>
+  <p>Set a question that should be displayed when learning the shortcut flashcards.</p>
+
   <dt-form-field>
     <dt-label>Question</dt-label>
-    <input type="text" dtInput/>
+    <input type="text" dtInput [(ngModel)]="question"/>
   </dt-form-field>
 
-  <p>First, Press the button to detect a keyboard shortcut.</p>
-  <p>Then enter your keyboard shortcut.</p>
+  <h2>Set a shortcut</h2>
+  <p>First, Press the button to detect a keyboard shortcut. Then enter your keyboard shortcut.</p>
 
-  <button dt-button>Detect Shortcut</button>
+  <button dt-button (click)="startShortcutDetection()" [disabled]="isShortcutDetectionRunning">
+    <ng-container *ngIf="!isShortcutDetectionRunning">Detect Shortcut</ng-container>
+    <ng-container *ngIf="isShortcutDetectionRunning"><dt-loading-spinner></dt-loading-spinner> Detecting Shortcuts...</ng-container>
+  </button>
 
+  <h2>Review & Save</h2>
+
+  <p *ngIf="validateQuestion()">
+    <strong>Question</strong>: {{question}}
+  </p>
+  <p *ngIf="validateShortcut()">
+    <strong>Answer</strong>:
+    <app-shortcut-displayer [keys]="detectedShortcut"></app-shortcut-displayer>
+  </p>
+
+  <button dt-button (click)="saveShortcut()" color="cta" [disabled]="!(validateQuestion() && validateShortcut())">
+      Save
+  </button>
+  <button dt-button (click)="clearInputs()" variant="secondary">
+    Clear Inputs
+  </button>
 </dt-card>
 
 <dt-card>
-  <h1>Your shortcuts:</h1>
+  <h1>All of your shortcuts:</h1>
+
+  <dt-table [dataSource]="shortcuts$" DtSort>
+    <ng-container dtColumnDef="question" dtColumnAlign="text">
+      <dt-header-cell *dtHeaderCellDef>Question</dt-header-cell>
+      <dt-cell *dtCellDef="let row">
+        {{row.shortcutLabel}}
+      </dt-cell>
+    </ng-container>
+    <ng-container dtColumnDef="shortcut" dtColumnAlign="text">
+      <dt-header-cell *dtHeaderCellDef>Shortcut</dt-header-cell>
+      <dt-cell *dtCellDef="let row">
+        <app-shortcut-displayer [keys]="row.shortcutKeys"></app-shortcut-displayer>
+      </dt-cell>
+    </ng-container>
+    <dt-header-row *dtHeaderRowDef="['question', 'shortcut']"
+    ></dt-header-row>
+    <dt-row
+            *dtRowDef="let row; columns: ['question', 'shortcut']"
+    ></dt-row>
+  </dt-table>
+
 </dt-card>
