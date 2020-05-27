@@ -1,6 +1,6 @@
 <ng-container *ngIf="hasCardToLearn$ | async; else nothingToBeLearned">
   <dt-card>
-    <dt-card-title>{{question$ | async}}</dt-card-title>
+    <dt-card-title>{{question$ | async}} 🤔</dt-card-title>
     <app-feedback-component *ngIf="_showAnswer || (correctShortcutDetected$ | async) === true"
                             [askFeedback]="!_showAnswer"
                             [correctAnswer]="answer$ | async"
@@ -19,7 +19,7 @@
           <dt-icon name="documentation"></dt-icon>
         </dt-empty-state-item-img>
         <dt-empty-state-item-title aria-level="2">Nothing to learn.</dt-empty-state-item-title>
-        <p>Good job!</p>
+        <p>Good job! 🎉</p>
         <p>It seems you have learned enough shortcuts today. You can check back tomorrow!</p>
       </dt-empty-state-item>
     </dt-empty-state>
