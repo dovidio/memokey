@@ -25,9 +25,7 @@ export class PersistenceService {
   private flashcards$ = new BehaviorSubject<FlashCard[]>([]);
 
   constructor(private electronService: ElectronService) {
-    console.log(this.flashcards$.getValue());
     this.flashcards$.next(this.getAllFlashcardsSync());
-    console.log(this.flashcards$.getValue());
   }
 
   getAllFlashcard(): Observable<FlashCard[]> {
@@ -36,12 +34,9 @@ export class PersistenceService {
 
   private getAllFlashcardsSync(): FlashCard[] {
     try {
-      console.log(this.electronService.remote.app.getAppPath());
       const fileName =
         this.electronService.remote.app.getAppPath() + "/db.json";
       const data = this.electronService.fs.readFileSync(fileName, "utf8");
-
-      console.log(data);
       return JSON.parse(data);
     } catch (err) {
       console.log("file does not exist");
@@ -56,9 +51,7 @@ export class PersistenceService {
   }
 
   addFlashcard(shortcutLabel: string, shortcut: string): void {
-    const data = this.createNewFlashCard(shortcutLabel, shortcut);
-    console.dir(this.flashcards$);
-    console.log(this.flashcards$.getValue());
+    const data = this.createNewFlashCard(shortcutLabel, shortcut);    
     const currentValues = this.flashcards$.getValue();
     currentValues.push(data);
     this.flushFlashcardsToDisk();
@@ -73,16 +66,13 @@ export class PersistenceService {
   }
 
   private flushFlashcardsToDisk(): void {
-    console.log(this.electronService.remote.app.getAppPath());
     const fileName = this.electronService.remote.app.getAppPath() + "/db.json";
     const writeStream = this.electronService.fs.createWriteStream(fileName, {
       flags: "w+"
     });
 
     const data = JSON.stringify(this.flashcards$.value);
-    writeStream.write(data, () => {
-      console.log("written");
-    });
+    writeStream.write(data);
   }
 
   private createNewFlashCard(

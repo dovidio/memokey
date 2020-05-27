@@ -17,7 +17,6 @@ export class AddComponent implements OnInit {
   }
 
   recognizeShortcut(): void {
-    console.log(this.shortcutLabel.nativeElement.value);
-    console.log(this.persistenceService.addFlashcard(this.shortcutLabel.nativeElement.value, 'bla'));
+    this.persistenceService.addFlashcard(this.shortcutLabel.nativeElement.value, 'bla')
   }
 }
