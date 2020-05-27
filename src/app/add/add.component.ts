@@ -25,7 +25,7 @@ export class AddComponent implements OnInit {
   recognizeShortcut(): void {
     this.persistenceService.addFlashcard(
         this.shortcutLabel.nativeElement.value,
-        "bla"
+        ["bla"]
     );
   }
 
