@@ -23,9 +23,8 @@ a[dtMenuItem] {
 }
 
 .sidenav-container {
-  height: 100%;
-  display: grid;
-  grid-template-rows: min-content auto;
+  height: 100vh;
+  display: flex;
   margin-left: $menu-width;
 }
 
@@ -45,7 +44,7 @@ a[dtMenuItem] {
 
 .top-bar-button {
   width: 44px;
-  height: 44px;
+  height: $header-height;
   fill: #ffffff;
   background: #191919;
   border: 0;
@@ -75,7 +74,7 @@ a[dtMenuItem] {
 }
 
 .memokey-main {
-  width: 60%;
+  min-width: 60%;
 }
 
 .memokey-menu {
