@@ -1,5 +1,12 @@
+$menu-width: 236px;
+$header-height: 44px;
+
+.sidenav {
+  position: fixed;
+}
+
 dt-menu {
-  margin-top: 35px;
+  margin-top: 45px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -7,7 +14,7 @@ dt-menu {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 236px;
+  width: $menu-width;
   z-index: 2;
 }
 
@@ -19,6 +26,7 @@ a[dtMenuItem] {
   height: 100%;
   display: grid;
   grid-template-rows: min-content auto;
+  margin-left: $menu-width;
 }
 
 .sidenav-title {
@@ -54,6 +62,7 @@ a[dtMenuItem] {
   width: 100%;
   right: 0;
   z-index: 1;
+  position: fixed;
 }
 
 .sidenav-content {
@@ -62,6 +71,7 @@ a[dtMenuItem] {
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  margin-top: $header-height;
 }
 
 .memokey-main {
