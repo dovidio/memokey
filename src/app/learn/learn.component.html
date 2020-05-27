@@ -1,12 +1,11 @@
 <ng-container *ngIf="hasCardToLearn$ | async; else nothingToBeLearned">
   <dt-card>
     <dt-card-title>{{question$ | async}}</dt-card-title>
-    <p *ngIf="_showAnswer">{{answer$ | async}}</p>
     <app-feedback-component *ngIf="_showAnswer || (correctShortcutDetected$ | async) === true"
                             [askFeedback]="!_showAnswer"
                             [correctAnswer]="answer$ | async"
                             (gradeEmitter)="next($event)"></app-feedback-component>
-    <button *ngIf="!_showAnswer && (correctShortcutDetected$ | async) === false" (click)="showAnswer()" dt-button>Show
+    <button *ngIf="!_showAnswer" (click)="showAnswer()" dt-button>Show
       answer
     </button>
   </dt-card>
