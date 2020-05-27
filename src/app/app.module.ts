@@ -31,6 +31,7 @@ import { DtToastModule } from "@dynatrace/barista-components/toast";
 import { DtLoadingDistractorModule } from "@dynatrace/barista-components/loading-distractor";
 import { FeedbackComponentComponent } from './feedback-component/feedback-component.component';
 import {DtButtonGroupModule} from "@dynatrace/barista-components/button-group";
+import {DtEmptyStateModule} from "@dynatrace/barista-components/empty-state";
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -66,7 +67,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DtTopBarNavigationModule,
     DtSelectModule,
     DtToastModule,
-    DtLoadingDistractorModule
+    DtLoadingDistractorModule,
+    DtEmptyStateModule
   ],
     providers: [],
     bootstrap: [AppComponent]

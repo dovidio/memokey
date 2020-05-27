@@ -13,7 +13,18 @@
 </ng-container>
 
 <ng-template #nothingToBeLearned>
-  Nothing to be learned
+  <dt-card>
+    <dt-empty-state>
+      <dt-empty-state-item>
+        <dt-empty-state-item-img>
+          <dt-icon name="documentation"></dt-icon>
+        </dt-empty-state-item-img>
+        <dt-empty-state-item-title aria-level="2">Nothing to learn.</dt-empty-state-item-title>
+        <p>Good job!</p>
+        <p>It seems you have learned enough shortcuts today. You can check back tomorrow!</p>
+      </dt-empty-state-item>
+    </dt-empty-state>
+  </dt-card>
 </ng-template>
 
 
