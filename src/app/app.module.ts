@@ -29,12 +29,14 @@ import { DtTopBarNavigationModule } from "@dynatrace/barista-components/top-bar-
 import { DtSelectModule } from "@dynatrace/barista-components/select";
 import { DtToastModule } from "@dynatrace/barista-components/toast";
 import { DtLoadingDistractorModule } from "@dynatrace/barista-components/loading-distractor";
+import { FeedbackComponentComponent } from './feedback-component/feedback-component.component';
+import {DtButtonGroupModule} from "@dynatrace/barista-components/button-group";
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
-  declarations: [AppComponent, AddComponent, LearnComponent, CurrentlyPressedKeysComponent, ShortcutDisplayerComponent],
+  declarations: [AppComponent, AddComponent, LearnComponent, CurrentlyPressedKeysComponent, ShortcutDisplayerComponent, FeedbackComponentComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -55,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DtFormFieldModule,
     DtInputModule,
     DtDrawerModule,
+    DtButtonGroupModule,
     BrowserAnimationsModule,
     DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
     DtButtonModule,

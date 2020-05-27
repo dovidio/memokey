@@ -1,8 +1,19 @@
-<dt-card>
-  <h2>Question</h2>
-  <h1>## Question Title ##</h1>
+<ng-container *ngIf="hasCardToLearn$ | async; else nothingToBeLearned">
+  <dt-card>
+    <dt-card-title>{{question$ | async}}</dt-card-title>
+    <p *ngIf="_showAnswer">{{answer$ | async}}</p>
+    <app-feedback-component *ngIf="_showAnswer || (correctShortcutDetected$ | async) === true"
+                            [askFeedback]="!_showAnswer"
+                            [correctAnswer]="answer$ | async"
+                            (gradeEmitter)="next($event)"></app-feedback-component>
+    <button *ngIf="!_showAnswer && (correctShortcutDetected$ | async) === false" (click)="showAnswer()" dt-button>Show
+      answer
+    </button>
+  </dt-card>
+</ng-container>
 
-  <p>Enter this keybinding, if you do not know it, press 'Show Answer'.</p>
+<ng-template #nothingToBeLearned>
+  Nothing to be learned
+</ng-template>
 
-  <button dt-button (click)="onShowAnswer()">Show Answer</button>
-</dt-card>
+
