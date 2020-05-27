@@ -44,7 +44,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       }
     }),
     BrowserAnimationsModule,
-    DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
     DtMenuModule,
     DtCardModule,
     DtFormFieldModule,

@@ -17,7 +17,22 @@
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "metadata.json",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts",
+                "output": "/fonts"
+              }
             ],
             "styles": [
               "src/styles.scss",
