@@ -1,7 +1,7 @@
-import {Inject, Injectable} from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { fromEvent, Observable } from "rxjs";
 import { buffer, filter, map } from "rxjs/operators";
-import {DOCUMENT} from "@angular/common";
+import { DOCUMENT } from "@angular/common";
 
 @Injectable({ providedIn: "root" })
 export class HotkeyRecorderService {
@@ -12,13 +12,20 @@ export class HotkeyRecorderService {
     const keyUp$ = fromEvent<KeyboardEvent>(document, "keyup");
 
     this.hotkey$ = keyDown$.pipe(
-      map((keyEvent) => keyEvent.key),
       buffer(keyUp$),
+      sortByKeyCode(),
+      map((keyEvents) =>
+        keyEvents.map((keyEvent) => keyEvent.key.toLocaleLowerCase())
+      ),
       filterEmpty(),
-      filterDuplicates(),
+      filterDuplicates()
     );
   }
 }
 
+const sortByKeyCode = () =>
+  map((keyEvents: KeyboardEvent[]) =>
+    keyEvents.sort((a, b) => a.keyCode - b.keyCode)
+  );
 const filterEmpty = <T>() => filter((arr: T[]) => arr.length > 0);
 const filterDuplicates = <T>() => map((arr: T[]) => Array.from(new Set(arr)));
