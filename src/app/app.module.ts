@@ -25,6 +25,8 @@ import {DtTableModule} from "@dynatrace/barista-components/table";
 import { CurrentlyPressedKeysComponent } from './currently-pressed-keys/currently-pressed-keys.component';
 import {ShortcutDisplayerComponent} from "./shortcut-displayer/shortcut-displayer.component";
 import {DtExpandableSectionModule} from "@dynatrace/barista-components/expandable-section";
+import {DtTopBarNavigationModule} from "@dynatrace/barista-components/top-bar-navigation";
+import {DtSelectModule} from "@dynatrace/barista-components/select";
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +57,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
     DtButtonModule,
     DtTableModule,
-    DtExpandableSectionModule
+    DtExpandableSectionModule,
+    DtTopBarNavigationModule,
+    DtSelectModule
   ],
     providers: [],
     bootstrap: [AppComponent]

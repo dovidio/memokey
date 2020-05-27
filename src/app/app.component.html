@@ -1,11 +1,26 @@
 <div>
   <dt-sidenav-container>
-    <dt-sidenav mode="side" position="start" opened>
+    <dt-sidenav #sidenav mode="side" position="start" opened>
+      <dt-sidenav-header>
+        <div class="sidenav-title">
+          <dt-icon class="sidenav-title-image" name="dynatrace"></dt-icon>
+          🧜‍♀️ Shortcut Trainer
+        </div>
+      </dt-sidenav-header>
+
       <dt-menu>
-        <a routerLink="/add" dtMenuItem>Add</a>
-        <a routerLink="/learn" dtMenuItem>Learn</a>
+        <a routerLink="/add" dtMenuItem>✍️ Add</a>
+        <a routerLink="/learn" dtMenuItem>📖 Learn</a>
       </dt-menu>
     </dt-sidenav>
+    <dt-top-bar-navigation aria-label="Main navigation" class="nav">
+      <dt-top-bar-navigation-item *ngIf="!sidenav.opened" align="start">
+        <button class="top-bar-button" (click)="sidenav.open()">
+          <dt-icon name="menu-hamburger"></dt-icon>
+        </button>
+      </dt-top-bar-navigation-item>
+    </dt-top-bar-navigation>
+
     <div class="sidenav-content">
       <div class="memokey-main">
         <router-outlet></router-outlet>
