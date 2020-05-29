@@ -36,7 +36,7 @@ export class PersistenceService {
   private getAllFlashcardsSync(): FlashCard[] {
     try {
       const fileName =
-        this.electronService.remote.app.getAppPath() + "/db.json";
+        this.electronService.remote.app.getPath('userData') + "/db.json";
       const data = this.electronService.fs.readFileSync(fileName, "utf8");
       return JSON.parse(data);
     } catch (err) {
@@ -68,7 +68,7 @@ export class PersistenceService {
   }
 
   private flushFlashcardsToDisk(): void {
-    const fileName = this.electronService.remote.app.getAppPath() + "/db.json";
+    const fileName = this.electronService.remote.app.getPath('userData') + "/db.json";
     const writeStream = this.electronService.fs.createWriteStream(fileName, {
       flags: "w+"
     });
